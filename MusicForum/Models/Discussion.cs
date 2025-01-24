@@ -8,7 +8,7 @@
 
         public string Content {  get; set; } = string.Empty;
 
-        public string ImageFileName { get; set; } = string.Empty 
+        public string ImageFileName { get; set; } = string.Empty; 
         
         public DateTime CreateDate { get; set; }
         

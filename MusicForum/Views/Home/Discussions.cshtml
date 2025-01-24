@@ -1,0 +1,42 @@
+﻿@model MusicForum.Models.Discussion
+
+@{
+	ViewData["Title"] = "Music Discussion Page";
+}
+
+
+<table class="table">
+	<tr>
+		<td>
+			@Html.DisplayNameFor(model => model.DiscussionId)
+		</td>
+		<td>
+			@Html.DisplayFor(model => model.DiscussionId)
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			@Html.DisplayNameFor(model => model.Title)
+		</td>
+		<td>
+			@Html.DisplayFor(model => model.Title)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			@Html.DisplayNameFor(model => model.Content)
+		</td>
+		<td>
+			@Html.DisplayFor(model => model.Content)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			@Html.DisplayNameFor(model => model.CreateDate)
+		</td>
+		<td>
+			@Html.DisplayFor(model => model.CreateDate)
+		</td>
+	</tr>
+</table>
