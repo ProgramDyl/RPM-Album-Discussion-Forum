@@ -1,36 +1,40 @@
-﻿@model MusicForum.Models.Comment
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using MusicForum.Models;
+using MusicForum.Data;
 
-@{
-    ViewData["Title"] = "Details";
+namespace MusicForum.Controllers
+{
+    public class HomeController : Controller
+    {
+        private readonly MusicForumContext _context;
+
+        // Constructor
+        public HomeController(MusicForumContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            // Fetch discussions from the database
+            List<Discussion> discussions = _context.Discussion.ToList();
+            
+            // Pass the discussions to the view
+            return View(discussions);
+        }
+
+        // Discussion page
+        public IActionResult Discussions(int id)
+        {
+            // Fetch a specific discussion by id
+            Discussion discussion = _context.Discussion.Find(id);
+            return View(discussion);
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+    }
 }
-
-<h1>Details</h1>
-
-<div>
-    <h4>Comment</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Discussion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Discussion.DiscussionId)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.CommentId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>

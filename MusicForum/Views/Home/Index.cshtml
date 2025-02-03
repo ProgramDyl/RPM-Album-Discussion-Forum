@@ -1,22 +1,38 @@
-﻿@model List<MusicForum.Models.Discussion> 
-
+﻿@model IEnumerable<MusicForum.Models.Discussion>
 
 @{
-	ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home page";
 }
 
-<h1>Dylan's Music Forum'</h1>
+<h1 class="fw-bold">Dylan's Music Forum</h1>
 
-@foreach(var item in Model) {
+<div class="mb-4">
+    The internet's best music discussion forum <br />
+    Powered by music nerds everywhere
+</div>
 
-	<p>
-		@item.DiscussionId<br />
-		@item.Content<br />
-		@item.CreateDate<br />
-		@item.ImageFileName<br />
-
-
-	</p>
-
-	<p>item</p>
-}
+<div class="masonry-grid">
+    @foreach (var item in Model)
+    {
+        string imageUrl = Url.Content("/discussions/" + item.ImageFileName);
+        <div>
+            <div>
+                @Html.DisplayFor(modelItem => item.Title)
+            </div>
+            <div>
+                @Html.DisplayFor(modelItem => item.Content)
+            </div>
+            <div>
+                @Html.DisplayFor(modelItem => item.ImageFileName)
+            </div>
+            <div>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </div>
+            <div>
+                <a asp-action="Edit" asp-route-id="@item.DiscussionId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.DiscussionId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.DiscussionId">Delete</a>
+            </div>
+        </div>
+    }
+</div>

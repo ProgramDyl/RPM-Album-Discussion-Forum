@@ -13,28 +13,41 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="DiscussionId" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+
+            <div class="mb-3">
+                <label asp-for="Title" class="form-control"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Content" class="form-control"></label>
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ImageFileName" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="ImageFileName" class="form-control"></label>
                 <input asp-for="ImageFileName" class="form-control" />
                 <span asp-validation-for="ImageFileName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CreateDate" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="CreateDate" class="form-control"></label>
                 <input asp-for="CreateDate" class="form-control" />
                 <span asp-validation-for="CreateDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+            <hr />
+            <div class="mb-3">
+                <a asp-controller="Comments" asp-action="Create" asp-route-id="@Model.DiscussionId" class="me-2 btn btn-light">Add Comment</a>
+                @if (Model.Comments != null)
+                {
+                    // TODO: figure out which model and prop to use
+                    foreach (var comment in Model.Comments)
+                    {
+                        <span class="badge rounded-pill text-bg-light pe-2">@comment.Content <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.CommentId">x</a> </span>
+                    }
+                }
             </div>
         </form>
     </div>

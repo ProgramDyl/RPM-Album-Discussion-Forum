@@ -22,7 +22,10 @@ namespace MusicForum.Controllers
         // GET: Discussions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Discussion.ToListAsync());
+            //get all photos
+            var discussions = await _context.Discussion.ToListAsync();
+
+            return View(discussions);
         }
 
         // GET: Discussions/Details/5
@@ -54,12 +57,32 @@ namespace MusicForum.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DiscussionId,Title,Content,ImageFileName,CreateDate")] Discussion discussion)
+        public async Task<IActionResult> Create([Bind("DiscussionId,Title,Content,ImageFile,ImageFileName,CreateDate")] Discussion discussion)
         {
+
+            //init datetime prop
+            discussion.CreateDate = DateTime.Now;
+
+            discussion.ImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(discussion.ImageFileName);
+
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(discussion);
                 await _context.SaveChangesAsync();
+
+                // Save the uploaded file after the photo is saved in the database.
+                if (discussion.ImageFile != null)
+                {
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "discussions", discussion.ImageFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await discussion.ImageFile.CopyToAsync(fileStream);
+                    }
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(discussion);
@@ -73,7 +96,7 @@ namespace MusicForum.Controllers
                 return NotFound();
             }
 
-            var discussion = await _context.Discussion.FindAsync(id);
+            var discussion = await _context.Discussion.Include("Comments").FirstOrDefaultAsync(m => m.DiscussionId == id);
             if (discussion == null)
             {
                 return NotFound();

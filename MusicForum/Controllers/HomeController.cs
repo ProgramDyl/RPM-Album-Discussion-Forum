@@ -1,56 +1,34 @@
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MusicForum.Models;
+using MusicForum.Data;
 
 namespace MusicForum.Controllers
 {
     public class HomeController : Controller
     {
-       
-        //constructor
-        public HomeController()
+        private readonly MusicForumContext _context;
+
+        // Constructor
+        public HomeController(MusicForumContext context)
         {
-            
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            // Fetch discussions from the database
+            List<Discussion> discussions = _context.Discussion.ToList();
 
-            List<Discussion> discussions = new List<Discussion>();
-
-            Discussion discussion1 = new Discussion();
-            discussion1.DiscussionId = 1;
-            discussion1.Title = "Test";
-            discussion1.Content = "Testing 123";
-            discussion1.ImageFileName = "testing";
-            discussion1.CreateDate = DateTime.Now;
-
-            Discussion discussion2 = new Discussion();
-            discussion2.DiscussionId = 2;
-            discussion2.Title = "Test";
-            discussion2.Content = "testing";
-
-
-            discussions.Add(discussion1);
-            discussions.Add(discussion2);
-
-            
-
-
-
+            // Pass the discussions to the view
             return View(discussions);
         }
 
+        // Discussion page
         public IActionResult Discussions(int id)
         {
-            Discussion discussion = new Discussion();
-            discussion.DiscussionId = id;
-
-            discussion.Title = "Test";
-            discussion.Content = "testing";
-            discussion.ImageFileName = "testing";
-            discussion.CreateDate = DateTime.Now;
+            // Fetch a specific discussion by id
+            Discussion discussion = _context.Discussion.Find(id);
             return View(discussion);
         }
 

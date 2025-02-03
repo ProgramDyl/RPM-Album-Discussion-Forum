@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="mb-3">Discuss Music</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -28,8 +28,9 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @foreach (var item in Model) {
+            string imageUrl = Url.Content("/discussions/" + item.ImageFileName);
+            <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
