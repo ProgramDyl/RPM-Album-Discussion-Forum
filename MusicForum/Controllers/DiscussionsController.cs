@@ -75,7 +75,7 @@ namespace MusicForum.Controllers
                 // Save the uploaded file after the photo is saved in the database.
                 if (discussion.ImageFile != null)
                 {
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "discussions", discussion.ImageFileName);
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "photos", discussion.ImageFileName);
 
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
