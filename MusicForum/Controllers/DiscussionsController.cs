@@ -37,6 +37,7 @@ namespace MusicForum.Controllers
             }
 
             var discussion = await _context.Discussion
+                .Include(d => d.Comments)
                 .FirstOrDefaultAsync(m => m.DiscussionId == id);
             if (discussion == null)
             {

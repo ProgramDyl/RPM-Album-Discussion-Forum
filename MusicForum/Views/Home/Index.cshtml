@@ -12,26 +12,18 @@
 </div>
 
 <div class="masonry-grid">
-    @foreach (var item in Model)
+    @foreach (var discussion in Model)
     {
-        string imageUrl = Url.Content("/discussions/" + item.ImageFileName);
-        <div>
-            <div>
-                @Html.DisplayFor(modelItem => item.Title)
-            </div>
-            <div>
-                @Html.DisplayFor(modelItem => item.Content)
-            </div>
-            <div>
-                @Html.DisplayFor(modelItem => item.ImageFileName)
-            </div>
-            <div>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </div>
-            <div>
-                <a asp-action="Edit" asp-route-id="@item.DiscussionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DiscussionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DiscussionId">Delete</a>
+        string imageUrl = Url.Content("/photos/" + discussion.ImageFileName);
+
+        <div class="discussion-preview">
+
+            <a href="@Url.Action("DiscussionDetails", "Home", new { id = discussion.DiscussionId })">
+                <img src="@imageUrl" class="img-fluid" alt="@discussion.Title" />
+            </a>
+
+            <div class="discussion-title">
+                <h3>@Html.DisplayFor(modelItem => discussion.Title)</h3>
             </div>
         </div>
     }

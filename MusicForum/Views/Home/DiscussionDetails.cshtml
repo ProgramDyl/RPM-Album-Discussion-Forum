@@ -1,0 +1,38 @@
+﻿@model MusicForum.Models.Discussion
+
+@{
+    ViewData["Title"] = "Discussion Details Page";
+    string imageUrl = Url.Content("/photos/" + Model.ImageFileName);
+}
+
+<div class="row">
+
+    <div class="col-xs-1 gap-5">
+
+        <div class="mb-5" align="center">
+
+            <img src="@imageUrl" class="img-fluid" alt="@Model.Title" />
+        </div>
+
+        <div class="row">
+
+            <div class="mb-4">
+
+                <i class="fa-solid fa-comment"></i>
+                @Html.DisplayFor(model => model.Title)
+            </div>
+
+            <div class="mb-3">
+                <i class="fa-solid fa-comment"></i>
+                @Html.DisplayFor(model => model.Content)
+            </div>
+
+            <div class="mb-3">
+                <p>
+                    <i class="fa-regular fa-calendar"></i>
+                    Created @Model.CreateDate.ToString("MMM d yyyy")
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

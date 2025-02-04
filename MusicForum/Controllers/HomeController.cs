@@ -1,7 +1,8 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using MusicForum.Models;
+using Microsoft.EntityFrameworkCore;
 using MusicForum.Data;
+using MusicForum.Models;
+using System.Threading.Tasks;
 
 namespace MusicForum.Controllers
 {
@@ -9,26 +10,23 @@ namespace MusicForum.Controllers
     {
         private readonly MusicForumContext _context;
 
-        // Constructor
         public HomeController(MusicForumContext context)
         {
             _context = context;
         }
 
-        public IActionResult Index()
+        // home - show all discussion threads
+        public async Task<IActionResult> Index()
         {
-            // Fetch discussions from the database
-            List<Discussion> discussions = _context.Discussion.ToList();
-
-            // Pass the discussions to the view
-            return View(discussions);
+            var discussions = await _context.Discussion.ToListAsync();
+            return View(discussions); // pass in the discussion list to the view
         }
 
-        // Discussion page
-        public IActionResult Discussions(int id)
+        // discussion details - displays the details of a discussion
+        public async Task<IActionResult> DiscussionDetails(int id)
         {
-            // Fetch a specific discussion by id
-            Discussion discussion = _context.Discussion.Find(id);
+            var discussion = await _context.Discussion.Include(m => m.Comments)
+                                                      .FirstOrDefaultAsync(m => m.DiscussionId == id);
             return View(discussion);
         }
 
