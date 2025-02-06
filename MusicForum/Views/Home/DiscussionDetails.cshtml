@@ -28,6 +28,22 @@
                     Created @Model.CreateDate.ToString("MMM d yyyy")
                 </p>
             </div>
+
+            <div className="mb-3">
+                <i class="fa-solid fa-tag"></i>
+                @Html.DisplayNameFor(model => model.Comments)
+
+            </div>
+
+            <div class="mb-3">
+                @if (Model.Comments != null)
+                {
+                    foreach (var comment in Model.Comments)
+                    {
+                        <span class="pe-2 btn btn-primary btn-secondary">@comment.Content <a asp-controller="Comments" asp-action="" asp-route-id="@comment.CommentId"></a></span>
+                    }
+                }
+            </div>
         </div>
     </div>
 </div>

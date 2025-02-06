@@ -25,10 +25,7 @@
                 <input asp-for="CreateDate" class="form-control" />
                 <span asp-validation-for="CreateDate" class="text-danger"></span>
             </div>
-            @* <div class="mb-3"> *@
-            @*     <label asp-for="DiscussionId" class="form-label"></label> *@
-            @*     <select asp-for="DiscussionId" class ="form-control" asp-items="ViewBag.DiscussionId"></select> *@
-            @* </div> *@
+            
             <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -37,7 +34,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Discussions" asp-action="Edit" asp-route-id="@ViewBag.DiscussionId">Back to List</a>
 </div>
 
 @section Scripts {
