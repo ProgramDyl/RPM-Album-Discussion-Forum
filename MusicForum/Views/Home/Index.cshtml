@@ -11,20 +11,45 @@
     Powered by music nerds everywhere
 </div>
 
-<div class="masonry-grid">
+<div class="main-content">
     @foreach (var discussion in Model)
     {
         string imageUrl = Url.Content("/photos/" + discussion.ImageFileName);
 
-        <div class="discussion-preview">
+        <div class="discussion-row">
 
             <a href="@Url.Action("DiscussionDetails", "Home", new { id = discussion.DiscussionId })">
-                <img src="@imageUrl" class="img-fluid" alt="@discussion.Title" />
+                <img src="@imageUrl" class="thumbnail" alt="@discussion.Title" />
             </a>
 
             <div class="discussion-title">
-                <h3>@Html.DisplayFor(modelItem => discussion.Title)</h3>
+                <h1>@Html.DisplayFor(modelItem => discussion.Title)</h1>
+                <p class="discussion-content">
+                    @Html.DisplayFor(modelItem => discussion.Content)
+                </p>
             </div>
+            <hr />
+            
+            <div>
+                <p class="discussion-created">
+                    @Html.DisplayFor(modelItem => discussion.CreateDate)
+                </p>
+            </div>
+
+            <div class="comment">
+                <p>
+                    @Html.DisplayFor(modelItem => discussion.Comments)
+                </p>
+            </div>
+
         </div>
     }
+</div>
+
+<div class="footer">
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - MusicForum - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
 </div>

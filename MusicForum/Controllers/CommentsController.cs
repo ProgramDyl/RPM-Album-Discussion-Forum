@@ -26,11 +26,7 @@ namespace MusicForum.Controllers
             return View(await musicForumContext.ToListAsync());
         }
 
-        //removed:
-        // GET: Comments/Details/5
-        // GET: Comments/Edit/5
-        // GET: Comments/Create
-        
+  
 
         // POST: Comments/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.

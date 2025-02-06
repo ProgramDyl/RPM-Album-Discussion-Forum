@@ -17,8 +17,11 @@ namespace MusicForum.Controllers
 
         // home - show all discussion threads
         public async Task<IActionResult> Index()
+
+
         {
-            var discussions = await _context.Discussion.ToListAsync();
+            var discussions = await _context.Discussion.OrderByDescending(d => d.CreateDate).ToListAsync();
+
             return View(discussions); // pass in the discussion list to the view
         }
 

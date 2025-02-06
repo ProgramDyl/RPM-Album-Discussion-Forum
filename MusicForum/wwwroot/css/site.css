@@ -1,64 +1,76 @@
 .thumbnail {
-    width: 100px;
+    max-width: 300px;
     height: auto;
+    margin-right: 15px;
 }
 
-.profile-pic {
-    width: 150px;
-    height: auto;
-    border-radius: 50%;
+.discussion-row {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
-/* Home page masonry styles
--------------------------------------------------- */
-.masonry-grid {
-    column-count: 3;
-    column-gap: 1.5em;
-}
-
-.masonry-grid-item {
-    display: inline-block;
-    margin: 0 0 2em;
-    width: 100%;
-}
-
-    .masonry-grid-item img:hover {
-        filter: brightness(0.65);
-        cursor: pointer;
+    .discussion-row img {
+        flex-shrink: 0;
     }
 
-/* collapse grid to 2 columns */
-@media (max-width: 992px) {
-    .masonry-grid {
-        column-count: 2;
-    }
+.discussion-content {
+    flex-grow: 1;
+    font-size: 14px;
+    font-family: MingLiU_HKSCS-ExtB;
+    flex-direction: column;
+    margin-left: 15px;
 }
 
-/* collapse grid to 1 column */
-@media (max-width: 768px) {
-    .masonry-grid {
-        column-count: 1;
-    }
+.discussion-title {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: SimSun-ExtG;
+    margin-bottom: 5px;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
+.discussion-created {
+    font-size: 12px;
+    font-weight: 100;
+    font-family: NSimSun;
 }
 
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
+.comment {
+    font-size: 14px;
+    color: #666;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    overflow: auto;
+    padding-bottom: 100px;
 }
 
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
     height: 60px;
-    line-height: 60px; /* Vertically center the text there */
+    line-height: 60px;
     background-color: #f5f5f5;
+}
+
+@media (max-width: 768px) {
+    .discussion-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .thumbnail {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
 }
