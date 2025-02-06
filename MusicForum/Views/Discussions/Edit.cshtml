@@ -38,17 +38,7 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
             <hr />
-            <div class="mb-3">
-                <a asp-controller="Comments" asp-action="Create" asp-route-id="@Model.DiscussionId" class="me-2 btn btn-light">Add Comment</a>
-                @if (Model.Comments != null)
-                {
-                    // TODO: figure out which model and prop to use
-                    foreach (var comment in Model.Comments)
-                    {
-                        <span class="badge rounded-pill text-bg-light pe-2">@comment.Content <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.CommentId">x</a> </span>
-                    }
-                }
-            </div>
+            
         </form>
     </div>
 </div>

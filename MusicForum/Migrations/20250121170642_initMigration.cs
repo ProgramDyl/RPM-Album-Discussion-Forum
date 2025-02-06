@@ -51,8 +51,7 @@ namespace MusicForum.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Comment_DiscussionId",
                 table: "Comment",
-                column: "DiscussionId",
-                unique: true);
+                column: "DiscussionId");
         }
 
         /// <inheritdoc />

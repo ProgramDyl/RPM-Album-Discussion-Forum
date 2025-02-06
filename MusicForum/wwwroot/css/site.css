@@ -2,10 +2,20 @@
     background-color: dodgerblue;
 }
 
+.home-header {
+    font-family:'Bookman Old Style';
+    font-size: 100px;
+}
+
 .thumbnail {
     max-width: 300px;
     height: auto;
     margin-right: 15px;
+}
+
+.form-thumbnail {
+    max-height: 150px;
+    max-width: 150px;
 }
 
 .discussion-row {

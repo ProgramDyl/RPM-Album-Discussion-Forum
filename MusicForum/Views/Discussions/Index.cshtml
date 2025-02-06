@@ -4,54 +4,44 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="mb-3">Discuss Music</h1>
+<div class="home-header">
+    RPM<br />
 
+</div>
+<p>
+    Share your thoughts & ideas
+    <hr />
+</p>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageFileName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="main-content">
+    
+    <div class="main-content">
         @foreach (var discussion in Model) {
 
             string imageUrl = Url.Content("/photos/" + discussion.ImageFileName);
-            <tr>
-            <td>
-                <img src="@imageUrl" class="img-fluid" alt="@discussion.Title" />
-            </td>
-            <td>
+            <div class="discussion-row">
+            <div class="thumbnail">
+                <img src="@imageUrl" class="form-thumbnail" alt="@discussion.Title" />
+            </div>
+            <div class="discussion-title">
                 @Html.DisplayFor(modelItem => discussion.Title)
-            </td>
-            <td>
+            </div>
+            <div class="discussion-content">
                 @Html.DisplayFor(modelItem => discussion.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => discussion.ImageFileName)
-            </td>
-            <td>
+            </div>
+          
+            <div class="discussion-created">
                 @Html.DisplayFor(modelItem => discussion.CreateDate)
-            </td>
-            <td>
+                    <br />
+            </div>
+            
+            <div class="mb-lg-3">
                 <a asp-action="Edit" asp-route-id="@discussion.DiscussionId">Edit</a> |
                 <a asp-action="Delete" asp-route-id="@discussion.DiscussionId">Delete</a>
-            </td>
-        </tr>
+            </div>
+        </div>
 }
-    </tbody>
-</table>
+    </div>
+</div>

@@ -1,0 +1,1 @@
+﻿create index IX_Comment_DiscussionId on Comment(DiscussionId);

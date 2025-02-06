@@ -4,12 +4,14 @@
     ViewData["Title"] = "Home page";
 }
 
-<h1 class="fw-bold">Dylan's Music Forum</h1>
-
-<div class="mb-4">
-    The internet's best music discussion forum <br />
-    Powered by music nerds everywhere
+<div class="home-header">
+    RPM<br />
+    
 </div>
+<p>
+    A place to discuss the albums that have influenced you... 
+    <hr />
+</p>
 
 <div class="main-content">
     @foreach (var discussion in Model)
@@ -23,11 +25,15 @@
             </a>
 
             <div class="discussion-title">
-                <h1>@Html.DisplayFor(modelItem => discussion.Title)</h1>
+                <a href="@Url.Action("DiscussionDetails", "Home", new { id = discussion.DiscussionId })">
+                    <h1>@Html.DisplayFor(modelItem => discussion.Title)</h1>
+                </a>
+                
                 <p class="discussion-content">
                     @Html.DisplayFor(modelItem => discussion.Content)
                 </p>
             </div>
+            <br />
             <hr />
             
             <div>
@@ -44,12 +50,22 @@
 
         </div>
     }
+
+
+
+    <div class="footer">
+        <footer class="border-top footer text-muted">
+            <div class="footer-text">
+                &copy; 2025 - MusicForum - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+    </div>
+
+
+
+
+
+
 </div>
 
-<div class="footer">
-    <footer class="border-top footer text-muted">
-        <div class="footer-text">
-            &copy; 2025 - MusicForum - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-</div>
+

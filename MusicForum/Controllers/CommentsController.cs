@@ -3,54 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MusicForum.Data;
 using MusicForum.Models;
 
 namespace MusicForum.Controllers
 {
-    public class CommentsController : Controller
+    public class CommentsController(MusicForumContext context) : Controller
     {
-        private readonly MusicForumContext _context;
-
-        public CommentsController(MusicForumContext context)
-        {
-            _context = context;
-        }
+        private readonly MusicForumContext _context = context;
 
         // GET: Comments
         public async Task<IActionResult> Index()
         {
             var musicForumContext = _context.Comment.Include(c => c.Discussion);
+
             return View(await musicForumContext.ToListAsync());
         }
 
-  
+        // GET: Comments/Create
+        public IActionResult Create(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            //set discussionID for comment's fk
+            ViewData["DiscussionId"] = id;
+
+            return View();
+        }
 
         // POST: Comments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CommentId,Content,CreateDate,DiscussionId")] Comment comment)
+        public async Task<IActionResult> Create([Bind("CommentId,Content,DiscussionId")] Comment comment)
         {
+            comment.CreateDate = DateTime.Now;
+
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
-                
-                return RedirectToAction("Edit", "Discussions", new { id = comment.DiscussionId});
+
+                // Redirect back to the Discussions Edit page
+                return RedirectToAction("DiscussionDetails", "Home", new { id = comment.DiscussionId });
             }
+
             ViewData["DiscussionId"] = comment.DiscussionId;
             return View(comment);
         }
 
-        
-       
-
-        // POST: Comments/Edit/5
-        
 
         // GET: Comments/Delete/5
         public async Task<IActionResult> Delete(int? id)
