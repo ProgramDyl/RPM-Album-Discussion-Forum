@@ -12,22 +12,33 @@
     height: auto;
     margin-right: 15px;
 }
+.title-width {
+    width: 200%;
+}
 
 .form-thumbnail {
     max-height: 150px;
     max-width: 150px;
 }
 
-.create-button {
-    background-color: #FF0000; 
-    color: #F8F8FF; 
-    font-family: 'SimSun', sans-serif; 
-    padding: 10px 20px;
-    border-radius: 50px; 
-    border: none;
-    cursor: pointer;
+.create-button button {
+    background-color: red;
+    color: antiquewhite;
+    border: 1px solid antiquewhite;
+    padding: 5px 10px;
+    text-align: center;
+    font-family: NSimSun, sans-serif;
+    display: inline-flex;
     font-size: 16px;
+    margin: 2px 2px;
+    cursor: pointer;
+    border-radius: 65px;
 }
+
+    .create-button button:hover {
+        background-color: dodgerblue;
+    }
+
 
 .discussion-row {
     display: flex;
@@ -59,11 +70,20 @@
     font-size: 12px;
     font-weight: 100;
     font-family: NSimSun;
+    margin-left: 15px;
+    margin-right: 10px;
 }
 
 .comment {
     font-size: 14px;
     color: #666;
+}
+
+.comment-box {
+    width: 300px;
+    height: 200px;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 html, body {
@@ -74,14 +94,20 @@ html, body {
     background-color: antiquewhite;
 }
 
-.comments-title {
-
+.comments-section {
+    background-color: aliceblue;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    font-family: NSimSun;
 }
 
-.comment-box {
-    height: 150px; 
-    width: 350px;
+.comments-content {
+    margin-top: 10px;
 }
+
 
 .section {
     margin-bottom: 30px; 

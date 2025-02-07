@@ -12,9 +12,12 @@
     Share your thoughts & ideas
     <hr />
 </p>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="create-button">
+    <button class="create-button" onclick="location.href='@Url.Action("Create")'">Create New</button>
+</div>
+<br />
+
+
 <div class="main-content">
     
     <div class="main-content">
@@ -37,10 +40,13 @@
                     <br />
             </div>
             
-            <div class="mb-lg-3">
-                <a asp-action="Edit" asp-route-id="@discussion.DiscussionId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@discussion.DiscussionId">Delete</a>
-            </div>
+            <div class="create-button">
+                    <button onclick="location.href='@Url.Action("Edit", new { id = discussion.DiscussionId })'">Edit</button>
+                </div>
+            
+            <div class="create-button">
+                    <button onclick="location.href='@Url.Action("Delete", new { id = discussion.DiscussionId })'">Delete</button>
+                </div>
         </div>
 }
     </div>

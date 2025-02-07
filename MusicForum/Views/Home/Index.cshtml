@@ -6,20 +6,18 @@
 
 <div class="home-header">
     RPM<br />
-    
 </div>
 <p>
-    A place to discuss the albums that have influenced you... 
+    A place to discuss the albums that have influenced you...
     <hr />
 </p>
 
 <div class="main-content">
     @foreach (var discussion in Model)
     {
-        string imageUrl = Url.Content("/photos/" + discussion.ImageFileName);
+        string imageUrl = Url.Content("~/photos/" + discussion.ImageFileName);
 
         <div class="discussion-row">
-
             <a href="@Url.Action("DiscussionDetails", "Home", new { id = discussion.DiscussionId })">
                 <img src="@imageUrl" class="thumbnail" alt="@discussion.Title" />
             </a>
@@ -28,30 +26,33 @@
                 <a href="@Url.Action("DiscussionDetails", "Home", new { id = discussion.DiscussionId })">
                     <h1>@Html.DisplayFor(modelItem => discussion.Title)</h1>
                 </a>
-                
+
                 <p class="discussion-content">
                     @Html.DisplayFor(modelItem => discussion.Content)
                 </p>
             </div>
             <br />
             <hr />
-            
+
             <div>
+                
+            </div>
+            <br />
+            <br />
+
+            <div class="created-and-comments">
                 <p class="discussion-created">
                     @Html.DisplayFor(modelItem => discussion.CreateDate)
                 </p>
-            </div>
-
-            <div class="comment">
-                <p>
-                    @Html.DisplayFor(modelItem => discussion.Comments)
+                <div class="verticalLine"></div>
+                <p class="discussion-created">
+                    Comments: @discussion.Comments.Count() 
                 </p>
+                <p>
+                
             </div>
-
         </div>
     }
-
-
 
     <div class="footer">
         <footer class="border-top footer text-muted">
@@ -60,12 +61,22 @@
             </div>
         </footer>
     </div>
-
-
-
-
-
-
 </div>
 
+<style>
+    .created-and-comments {
+        display:flex;
+        align-items: center;
+        margin-top: 15px;
+    }
 
+    .created-and-comments .verticalLine {
+        border-left: 1px solid #000;
+        height: 1.5em;
+        margin: 0 10px;
+    }
+
+    .discussion-comments {
+        margin-top: 15px;
+    }
+</style>
