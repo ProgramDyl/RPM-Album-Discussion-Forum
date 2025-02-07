@@ -1,13 +1,13 @@
 # RPM: A Music Discussion Forum
 <hr />
-# Introduction
+Introduction
 
 During my time at Nova Scotia Community CollegeInspired by Aquarium Forum, https://www.aquariumforum.com/, this project is a discussion thread forum built using ASP.NET MVC design pattern. There is a relatively simple database implemented using Entity Framework ORM. 
 
 
 
 <hr />
-# Description
+Description
 
 
 Create a thread and start talking about your favourite records right away! All you need is
