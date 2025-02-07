@@ -14,7 +14,7 @@
         <div class="col-12 col-md-9">
             <div class="card shadow-sm">
                 <div class="card-header">
-                    <h4 class="card-title"><i class="fa-solid fa-comment"></i> @Html.DisplayFor(model => model.Title)</h4>
+                    <h4 class="discussion-title"><i class="fa-solid fa-comment"></i> @Html.DisplayFor(model => model.Title)</h4>
                     <p class="card-subtitle text-muted">
                         <i class="fa-regular fa-calendar"></i> Created @Model.CreateDate.ToString("MMM d yyyy")
                     </p>
@@ -25,7 +25,7 @@
             </div>
 
             <div class="mt-4">
-                <h5><i class="fa-solid fa-tag"></i> Comments</h5>
+                <h5 class="discussion-title"> Comments</h5>
                 <div>
                     @if (Model.Comments != null && Model.Comments.Any())
                     {

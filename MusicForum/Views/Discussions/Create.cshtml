@@ -13,32 +13,24 @@
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="discussion-title"></label><br />
                 <input asp-for="Title" class="mb-3" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="mb-3" />
+                <label asp-for="Content" class="discussion-title"></label><br />
+                <input asp-for="Content" class="comment-box" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                <label asp-for="ImageFileName" class="control-label"></label>
-                <input asp-for="ImageFileName" class="mb-3" />
-                <span asp-validation-for="ImageFileName" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="ImageFile" class="mb-3"></label>
-                <input type="file" asp-for="ImageFile" class="mb-3" />
+            
+            <div class="mb-5">
+                <label asp-for="ImageFile" class="discussion-title"></label><br />
+                <input type="file" asp-for="ImageFile" class="discussion-content" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
+            
             <div class="mb-3">
-                <label asp-for="CreateDate" class="control-label"></label>
-                <input asp-for="CreateDate" class="mb-3" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="create-button" />
             </div>
         </form>
     </div>

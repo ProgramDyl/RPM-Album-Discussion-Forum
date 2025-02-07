@@ -18,6 +18,17 @@
     max-width: 150px;
 }
 
+.create-button {
+    background-color: #FF0000; 
+    color: #F8F8FF; 
+    font-family: 'SimSun', sans-serif; 
+    padding: 10px 20px;
+    border-radius: 50px; 
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
 .discussion-row {
     display: flex;
     align-items: center;
@@ -62,6 +73,20 @@ html, body {
     flex-direction: column;
     background-color: antiquewhite;
 }
+
+.comments-title {
+
+}
+
+.comment-box {
+    height: 150px; 
+    width: 350px;
+}
+
+.section {
+    margin-bottom: 30px; 
+}
+
 
 .main-content {
     

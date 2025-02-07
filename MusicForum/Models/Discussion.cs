@@ -13,7 +13,7 @@ namespace MusicForum.Models
 
         // Property for file upload, not mapped in EF
         [NotMapped]
-        [Display(Name = "Photo")]
+        [Display(Name = "Album Art")]
         public IFormFile? ImageFile { get; set; } // nullable!
 
         public string ImageFileName { get; set; } = string.Empty; 
