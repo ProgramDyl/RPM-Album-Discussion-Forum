@@ -1,13 +1,15 @@
 # RPM: A Music Discussion Forum
-
-# Introduction
 <hr />
+# Introduction
+
 During my time at Nova Scotia Community CollegeInspired by Aquarium Forum, https://www.aquariumforum.com/, this project is a discussion thread forum built using ASP.NET MVC design pattern. There is a relatively simple database implemented using Entity Framework ORM. 
 
-RPM is a discussion forum for chatting about your favourite albums! 
 
-# Description
+
 <hr />
+# Description
+
+
 Create a thread and start talking about your favourite records right away! All you need is
 an image of an album cover, a title, some content, and that's it. You can create, edit, and delete a thread. There are comments as well! The comments are on the discussion details page, organized by the date they were created.
 
@@ -20,7 +22,7 @@ As with all of my projects, I will be continuing development post-school. So fee
 
 Thank you for checking it out. 
 
-**dylan cunningham*
+**ProgramDyl**🚀
 
 
 
