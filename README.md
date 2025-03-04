@@ -2,9 +2,7 @@
 <hr />
 Introduction
 
-During my time at Nova Scotia Community CollegeInspired by Aquarium Forum, https://www.aquariumforum.com/, this project is a discussion thread forum built using ASP.NET MVC design pattern. There is a relatively simple database implemented using Entity Framework ORM. 
-
-
+A forum application built to demonstrate proficiency in C#, JavaScript, Full-Stack Development, and ASP.NET. Inspired by Aquarium Forum, https://www.aquariumforum.com/, this project is a discussion thread forum built using ASP.NET MVC design pattern. There is a relatively simple database implemented using Entity Framework ORM. 
 
 <hr />
 Description
