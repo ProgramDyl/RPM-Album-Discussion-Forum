@@ -7,15 +7,16 @@
 }
 
 .home-header {
-    font-family:'Bookman Old Style';
+    font-family: 'Bookman Old Style';
     font-size: 100px;
 }
 
 .thumbnail {
-    max-width: 300px;
+    max-width: 280px;
     height: auto;
     margin-right: 15px;
 }
+
 .title-width {
     width: 100%;
 }
@@ -47,12 +48,16 @@
         background-color: dodgerblue;
     }
 
-
 .discussion-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: row;
+    position: relative;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
     .discussion-row img {
@@ -64,7 +69,7 @@
     font-size: 14px;
     font-family: MingLiU_HKSCS-ExtB;
     flex-direction: column;
-    margin-left: 15px;
+    margin-top: 40px;
 }
 
 .discussion-title {
@@ -78,7 +83,7 @@
     font-size: 12px;
     font-weight: 100;
     font-family: NSimSun;
-    margin-left: 15px;
+    margin-left: 70px;;
     margin-right: 10px;
 }
 
@@ -126,11 +131,9 @@ html, body {
     margin-top: 10px;
 }
 
-
 .section {
-    margin-bottom: 30px; 
+    margin-bottom: 30px;
 }
-
 
 .main-content {
     flex: 1;

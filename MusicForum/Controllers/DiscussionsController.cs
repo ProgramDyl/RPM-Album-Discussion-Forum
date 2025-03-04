@@ -67,7 +67,6 @@ namespace MusicForum.Controllers
             discussion.ImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(discussion.ImageFileName);
 
 
-
             if (ModelState.IsValid)
             {
                 _context.Add(discussion);

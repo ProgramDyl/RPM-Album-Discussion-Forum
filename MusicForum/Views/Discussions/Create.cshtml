@@ -10,6 +10,8 @@
 <hr />
 <div class="discussion-row">
     <div class="col-md-4">
+
+
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-5">
@@ -25,6 +27,7 @@
             
             <div class="mb-5">
                 <label asp-for="ImageFile" class="discussion-title"></label><br />
+
                 <input type="file" asp-for="ImageFile" class="discussion-content" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
@@ -33,6 +36,8 @@
                 <input type="submit" value="Create" class="create-button" />
             </div>
         </form>
+
+
     </div>
 </div>
 
