@@ -2,6 +2,10 @@
     background-color: dodgerblue;
 }
 
+.logo-img {
+    height: 10px;
+}
+
 .home-header {
     font-family:'Bookman Old Style';
     font-size: 100px;
@@ -13,7 +17,11 @@
     margin-right: 15px;
 }
 .title-width {
-    width: 200%;
+    width: 100%;
+}
+
+.comment-box {
+    width: 5em;
 }
 
 .form-thumbnail {
@@ -94,6 +102,16 @@ html, body {
     background-color: antiquewhite;
 }
 
+.d-flex {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.flex-grow-1 {
+    flex: 1
+}
+
 .comments-section {
     background-color: aliceblue;
     border: 1px solid black;
@@ -115,20 +133,19 @@ html, body {
 
 
 .main-content {
-    
     flex: 1;
     overflow: auto;
     padding-bottom: 100px;
 }
 
 .footer {
-    position: fixed;
+    position: relative;
     bottom: 0;
     width: 100%;
     height: 60px;
     line-height: 60px;
     background-color: red;
-    align-content: center;
+    align-content: start;
 }
 
 .footer-text {

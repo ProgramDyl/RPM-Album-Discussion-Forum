@@ -27,6 +27,7 @@
                     <h1>@Html.DisplayFor(modelItem => discussion.Title)</h1>
                 </a>
 
+                
                 <p class="discussion-content">
                     @Html.DisplayFor(modelItem => discussion.Content)
                 </p>
@@ -53,14 +54,16 @@
             </div>
         </div>
     }
+    
 
-    <div class="footer">
-        <footer class="border-top footer text-muted">
-            <div class="footer-text">
-                &copy; 2025 - MusicForum - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
-    </div>
+    
+</div>
+<div class="footer">
+    <footer class="border-top footer text-muted">
+        <div class="footer-text">
+            &copy; 2025 - MusicForum - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
 </div>
 
 <style>
