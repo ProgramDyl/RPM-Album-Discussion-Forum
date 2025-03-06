@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MusicForum.Data
 {
-    public class MusicForumContext : IdentityDbContext
+    public class MusicForumContext : IdentityDbContext<ApplicationUser>
     {
         public MusicForumContext (DbContextOptions<MusicForumContext> options)
             : base(options)
