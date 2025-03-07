@@ -15,7 +15,7 @@ namespace MusicForum.Controllers
             _context = context;
         }
 
-        // home - show all discussion threads
+        // home page - show all discussion threads
         public async Task<IActionResult> Index()
         {
             var discussions = await _context.Discussion

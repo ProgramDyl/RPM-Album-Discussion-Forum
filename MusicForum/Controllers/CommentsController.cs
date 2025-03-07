@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MusicForum.Data;
@@ -9,6 +10,7 @@ using MusicForum.Models;
 
 namespace MusicForum.Controllers
 {
+    [Authorize]
     public class CommentsController(MusicForumContext context) : Controller
     {
         private readonly MusicForumContext _context = context;

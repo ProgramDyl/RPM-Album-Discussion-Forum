@@ -16,11 +16,23 @@ namespace MusicForum.Models
         [Display(Name = "Album Art")]
         public IFormFile? ImageFile { get; set; } // nullable!
 
-        public string ImageFileName { get; set; } = string.Empty; 
-        
+        [Display(Name = "Image")]
+        public string ImageFileName { get; set; } = string.Empty;
+
+        [Display(Name = "Date Posted")]
         public DateTime CreateDate { get; set; }
 
         //nav prop
+        [Display(Name = "Comments")] 
         public List<Comment>? Comments { get; set; } 
+
+
+        //user properties
+        //public string ApplicationUserId { get; set; } = string.Empty;
+
+        ////nav prop
+        //public ApplicationUser? ApplicationUser { get; set; }
+
+
     }
 }
