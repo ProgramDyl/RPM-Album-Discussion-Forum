@@ -8,9 +8,9 @@ namespace MusicForum.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly MusicForumContext _context;
+        private readonly RPMForumContext _context;
 
-        public HomeController(MusicForumContext context)
+        public HomeController(RPMForumContext context)
         {
             _context = context;
         }

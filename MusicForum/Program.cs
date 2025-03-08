@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddDbContext<MusicForumContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MusicForumContext") ?? throw new InvalidOperationException("Connection string 'MusicForumContext' not found.")));
+builder.Services.AddDbContext<RPMForumContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RPMForumContext") ?? throw new InvalidOperationException("Connection string 'RPMForumContext' not found.")));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<MusicForumContext>();
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<RPMForumContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

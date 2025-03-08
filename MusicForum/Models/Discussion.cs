@@ -24,14 +24,14 @@ namespace MusicForum.Models
 
         //nav prop
         [Display(Name = "Comments")] 
-        public List<Comment>? Comments { get; set; } 
+        public List<Comment>? Comments { get; set; }
 
 
         //user properties
-        //public string ApplicationUserId { get; set; } = string.Empty;
+        public string ApplicationUserId { get; set; } = string.Empty;
 
-        ////nav prop
-        //public ApplicationUser? ApplicationUser { get; set; }
+        //nav prop
+        public ApplicationUser? ApplicationUser { get; set; }
 
 
     }

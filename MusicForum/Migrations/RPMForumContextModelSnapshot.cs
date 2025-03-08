@@ -10,8 +10,8 @@ using MusicForum.Data;
 
 namespace MusicForum.Migrations
 {
-    [DbContext(typeof(MusicForumContext))]
-    partial class MusicForumContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(RPMForumContext))]
+    partial class RPMForumContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -248,10 +248,6 @@ namespace MusicForum.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -263,8 +259,6 @@ namespace MusicForum.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CommentId");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("DiscussionId");
 
@@ -358,19 +352,11 @@ namespace MusicForum.Migrations
 
             modelBuilder.Entity("MusicForum.Models.Comment", b =>
                 {
-                    b.HasOne("ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MusicForum.Models.Discussion", "Discussion")
                         .WithMany("Comments")
                         .HasForeignKey("DiscussionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Discussion");
                 });

@@ -11,16 +11,16 @@ using MusicForum.Models;
 namespace MusicForum.Controllers
 {
     [Authorize]
-    public class CommentsController(MusicForumContext context) : Controller
+    public class CommentsController(RPMForumContext context) : Controller
     {
-        private readonly MusicForumContext _context = context;
+        private readonly RPMForumContext _context = context;
 
         // GET: Comments
         public async Task<IActionResult> Index()
         {
-            var musicForumContext = _context.Comment.Include(c => c.Discussion);
+            var RPMForumContext = _context.Comment.Include(c => c.Discussion);
 
-            return View(await musicForumContext.ToListAsync());
+            return View(await RPMForumContext.ToListAsync());
         }
 
         // GET: Comments/Create

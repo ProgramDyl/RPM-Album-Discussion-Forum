@@ -9,14 +9,20 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MusicForum.Data
 {
-    public class MusicForumContext : IdentityDbContext<ApplicationUser>
+    public class RPMForumContext : IdentityDbContext<ApplicationUser>
     {
-        public MusicForumContext (DbContextOptions<MusicForumContext> options)
+        public RPMForumContext(DbContextOptions<RPMForumContext> options)
             : base(options)
         {
         }
 
         public DbSet<MusicForum.Models.Discussion> Discussion { get; set; } = default!;
         public DbSet<MusicForum.Models.Comment> Comment { get; set; } = default!;
+
+
+        
+
+
     }
 }
+

@@ -11,9 +11,9 @@ using MusicForum.Data;
 
 namespace MusicForum.Migrations
 {
-    [DbContext(typeof(MusicForumContext))]
-    [Migration("20250306182959_CustomUserData")]
-    partial class CustomUserData
+    [DbContext(typeof(RPMForumContext))]
+    [Migration("20250308004156_AddAppUserToDisc")]
+    partial class AddAppUserToDisc
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,10 +33,6 @@ namespace MusicForum.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Bio")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -48,8 +44,17 @@ namespace MusicForum.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsForHire")
-                        .HasColumnType("bit");
+                    b.Property<string>("FavouriteAlbum")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageFilename")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -271,6 +276,10 @@ namespace MusicForum.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscussionId"));
 
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -287,6 +296,8 @@ namespace MusicForum.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DiscussionId");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Discussion");
                 });
@@ -351,6 +362,17 @@ namespace MusicForum.Migrations
                         .IsRequired();
 
                     b.Navigation("Discussion");
+                });
+
+            modelBuilder.Entity("MusicForum.Models.Discussion", b =>
+                {
+                    b.HasOne("ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("MusicForum.Models.Discussion", b =>

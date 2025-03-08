@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,18 +15,22 @@ namespace MusicForum.Controllers
     [Authorize] 
     public class DiscussionsController : Controller
     {
-        private readonly MusicForumContext _context;
+        private readonly RPMForumContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public DiscussionsController(MusicForumContext context)
+        public DiscussionsController(RPMForumContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
         }
 
-        // GET: Discussions
+        // GET: Discussions by user id
         public async Task<IActionResult> Index()
         {
             //get all photos
-            var discussions = await _context.Discussion.ToListAsync();
+            var userId = _userManager.GetUserId(User);
+            var discussions = await _context.Discussion
+                .Where(m => m.ApplicationUserId == userId)
+                .ToListAsync();
 
             return View(discussions);
         }
@@ -66,7 +71,12 @@ namespace MusicForum.Controllers
             //init datetime prop
             discussion.CreateDate = DateTime.Now;
 
+            //rename uploaded file to a guid (unique filename). Set before saved in db.
             discussion.ImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(discussion.ImageFileName);
+
+            //sets owner of the record
+            var userId = _userManager.GetUserId(User);
+            discussion.ApplicationUserId = userId;
 
 
             if (ModelState.IsValid)
