@@ -8,7 +8,7 @@
 
 .home-header {
     font-family: 'Bookman Old Style';
-    font-size: 100px;
+    font-size: 4rem;
 }
 
 .thumbnail {
@@ -31,7 +31,7 @@
 }
 
 .create-button button {
-    background-color: red;
+    background-color: #d9534f;
     color: antiquewhite;
     border: 1px solid antiquewhite;
     padding: 5px 10px;
