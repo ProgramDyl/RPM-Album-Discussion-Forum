@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
+    
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
@@ -9,20 +9,24 @@
 <partial name="_StatusMessage" for="StatusMessage" />
 
 <div class="discussion-container">
-    <div class="discussion-row">
-        <!-- Profile Picture Section -->
-        <section class="comments-section" style="text-align: center;">
-            <div style="flex: 0 0 auto; margin-right: 20px;">
-                <img src="https://via.placeholder.com/200" alt="Profile Picture" class="profile-picture" />
-                <button class="create-button" style="margin-top: 10px;">Change Picture</button>
-            </div>
-        </section>
-
+    
+       
         <!-- Profile Form Section -->
-        <section class="comments-section">
-            <form id="profile-form" method="post">
+        
+            <form id="profile-form" method="post" enctype="multipart/form-data">
+                <!-- Profile Picture Section -->
+                <section class="comments-section" style="text-align: center;">
+                <img src="~/profile_img/@Model.Input.ImageFilename" class="profile-picture" style="width: 120px; height: 120px; border-radius: 50%;" />
+
+                    <div style="flex: 0 0 auto; margin-right: 20px;">
+                        <label asp-for="Input.ImageFile" class="form-control" />
+                        <input type="file" asp-for="Input.ImageFile" class="form-control" />
+                        <span asp-validation-for="Input.ImageFile" class="text-danger"></span>
+                    </div>
+                </section>
+
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
+                <div class="form-floating mt-4 mb-3">
                     <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
                     <label asp-for="Username" class="form-label">Username</label>
                 </div>
@@ -38,10 +42,10 @@
                     <input asp-for="Input.Location" class="form-control" placeholder="Where do you live?" />
                     <label asp-for="Input.Location" class="form-label">Location</label>
                 </div>
-                <button id="update-profile-button" type="submit" class="create-button">Save</button>
-            </form>
-        </section>
-    </div>
+                <button id="update-profile-button" type="submit" class="create-button" style="display: block; margin: 20px auto;">Save</button>
+    </form>
+        
+    
 </div>
 
 @section Scripts {

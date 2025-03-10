@@ -14,6 +14,33 @@ html, body {
 
 /*Component Styles */
 
+.custom-nav {
+    margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+    .custom-nav .nav-link {
+        padding: 12px 18px;
+        background-color: #8b0000; 
+        color: antiquewhite; 
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .custom-nav .nav-link:hover {
+            background-color: #d9534f; 
+            transform: scale(1.05); 
+            text-decoration: none;
+        }
+
+    .custom-nav .nav-item {
+        margin-bottom: 20px;
+    }
+
 
 /* Navbar */
 .navbar {
@@ -86,6 +113,8 @@ html, body {
     border: 2px solid #ddd; 
 }
 
+
+
 button,
 input[type="button"],
 input[type="submit"] {
@@ -156,10 +185,9 @@ input[type="submit"] {
     border: 3px double black;
 }
 
-/* Discussion rows */
 .discussion-row {
-    display: grid; /
-    grid-template-columns: auto 1fr auto; 
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     gap: 10px;
     align-items: center;
     padding: 10px;
@@ -182,9 +210,8 @@ input[type="submit"] {
     overflow-wrap: break-word;
     word-break: break-word;
     max-width: 100%;
-
-
-
+    text-align: center;
+    margin: 0 auto;
 }
 
 .discussion-title {
@@ -196,16 +223,18 @@ input[type="submit"] {
     overflow-wrap: break-word;
     word-break: break-word;
     max-width: 100%;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .discussion-created {
     font-size: 12px;
     font-weight: 100;
     font-family: NSimSun, sans-serif;
-    margin-left: 2em; 
-    margin-right: 10px;
-    color: #666; 
+    margin: 0 auto;
+    text-align: center;
 }
+
 
 /* Comments section */
 .comments-section {

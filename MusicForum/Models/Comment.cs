@@ -18,7 +18,7 @@ namespace MusicForum.Models
         public Discussion? Discussion { get; set; }
 
 
-        ////user properties
+        //user properties
         //public string ApplicationUserId { get; set; } = string.Empty;
 
         ////nav prop

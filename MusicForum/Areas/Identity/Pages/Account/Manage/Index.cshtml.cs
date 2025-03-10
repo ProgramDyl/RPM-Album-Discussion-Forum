@@ -56,7 +56,6 @@ namespace MusicForum.Areas.Identity.Pages.Account.Manage
             // BEGIN: ApplicationUser Custom Fields
             ///////////////////////////////////////
 
-
             [Required]
             [DataType(DataType.Text)]
             [Display(Name = "Nickname")]
@@ -72,9 +71,10 @@ namespace MusicForum.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Location")]
             public string Location { get; set; }
 
+            public string ImageFilename { get; set; }
 
-
-
+            [Display(Name = "Change Profile Picture")]
+            public IFormFile ImageFile { get; set; }
             ///////////////////////////////////////
             // END: ApplicationUser Custom Fields
             ///////////////////////////////////////
@@ -84,7 +84,7 @@ namespace MusicForum.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code.This API may change or be removed in future releases.
             /// </summary>
-            
+
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -96,9 +96,18 @@ namespace MusicForum.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+
+                /////////////////////////////////////////
+                /// BEGIN: ApplicationUser Custom Fields
+                /////////////////////////////////////////
+                
                 Nickname = user.Name,
                 FavouriteAlbum = user.FavouriteAlbum,
                 Location = user.Location,
+                ImageFilename = user.ImageFilename
+                /////////////////////////////////////////
+                /// END: ApplicationUser Custom Fields
+                /////////////////////////////////////////
             };
         }
 
@@ -128,8 +137,10 @@ namespace MusicForum.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            
 
+            /////////////////////////////////////////
+            /// BEGIN: ApplicationUser Custom Fields
+            ///////////////////////////////////////// 
 
             if (Input.Nickname != user.Name)
             {
@@ -146,7 +157,24 @@ namespace MusicForum.Areas.Identity.Pages.Account.Manage
                 user.Location = Input.Location;
             }
 
-            await _userManager.UpdateAsync(user); 
+            //Update the profile picture
+            if (Input.ImageFile != null)
+            {
+                string imageFilename = Guid.NewGuid().ToString() + Path.GetExtension(Input.ImageFile.FileName);
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "profile_img", imageFilename);
+
+                using (var filestream = new FileStream(filePath, FileMode.Create))
+                {
+                    await Input.ImageFile.CopyToAsync(filestream);
+                }
+                user.ImageFilename = imageFilename;
+            }
+
+            await _userManager.UpdateAsync(user);
+
+            /////////////////////////////////////////
+            /// END: ApplicationUser Custom Fields
+            ///////////////////////////////////////// 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
