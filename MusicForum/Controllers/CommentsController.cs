@@ -14,7 +14,7 @@ namespace MusicForum.Controllers
     [Authorize]
     public class CommentsController : Controller
     {
-        private readonly RPMForumContext _context = context;
+        private readonly RPMForumContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
 
@@ -29,11 +29,16 @@ namespace MusicForum.Controllers
         // GET: Comments
         public async Task<IActionResult> Index()
         {
-            var RPMForumContext = _context.Comment.Include(c => c.Discussion);
-            
+            //filter based on logged in user 
+            var userId = _userManager.GetUserId(User);
+
+            var comments = await _context.Comment
+                .Include(c => c.Discussion)
+                .Where(c => c.Discussion.ApplicationUserId == userId) //thread is owned by user 
+                .ToListAsync();
 
 
-            return View(await RPMForumContext.ToListAsync());
+            return View(comments);
         }
 
         // GET: Comments/Create
@@ -44,17 +49,15 @@ namespace MusicForum.Controllers
                 return NotFound();
             }
 
-            //get id of logged in user
-            var userId = _userManager.GetUserId(User);
+            // Check if the discussion exists (any owner) 
+            var discussionExists = await _context.Discussion.AnyAsync(d => d.DiscussionId == id);
+            if (!discussionExists)
+            {
+                return NotFound();
+            }
 
-            var discussion = await _context.Discussion
-                .Include("Comments")
-                .Where(m => m.ApplicationUserId == userId)
-                .FirstOrDefaultAsync(m => m.DiscussionId == id);
-
-            //set discussionID for comment's fk
+            // Set discussionID for comment's foreign key
             ViewData["DiscussionId"] = id;
-
             return View();
         }
 
@@ -65,7 +68,18 @@ namespace MusicForum.Controllers
         {
             comment.CreateDate = DateTime.Now;
 
-            //get the photos and ensure looged in user is owner
+            // Set the owner of the comment
+            var userId = _userManager.GetUserId(User);
+            comment.ApplicationUserId = userId;
+
+            // Validate that the DiscussionId exists
+            var discussionExists = await _context.Discussion.AnyAsync(d => d.DiscussionId == comment.DiscussionId);
+            if (!discussionExists)
+            {
+                ModelState.AddModelError("DiscussionId", "The specified discussion does not exist.");
+                ViewData["DiscussionId"] = comment.DiscussionId;
+                return View(comment);
+            }
 
             if (ModelState.IsValid)
             {
@@ -111,6 +125,8 @@ namespace MusicForum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+
+
             var comment = await _context.Comment.FindAsync(id);
             if (comment != null)
             {

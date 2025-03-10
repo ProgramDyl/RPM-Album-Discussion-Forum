@@ -1,38 +1,41 @@
 ﻿@model MusicForum.Models.Comment
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "RPM";
 }
 
-<h1>Create</h1>
+<h1 class="home-header">@ViewData["Title"]</h1>
 
-<h4>Comment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="discussion-container" style="background-color: cornflowerblue; max-width: 80%; margin: 0 auto; border: 2px solid black;">
 
-            <input type="hidden" name="DiscussionId" value="@ViewBag.DiscussionId"/>
+    <div class="back-icon-container" style="margin-bottom: 20px;">
+        <a asp-action="Discussions" asp-route-id="@ViewBag.DiscussionId" class="back-icon-link" style="text-decoration: none; color: black; display: flex; align-items: center; font-size: 18px;">
+            <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Back to List
+        </a>
+    </div>
 
-            <div class="mb-3">
-                <label asp-for="Content" class="form-label"></label>
-                <input asp-for="Content" class="form-control" />
+    <section class="comments-section">
+        <form asp-action="Create" method="post">
+            <h2 class="discussion-title">Create a New Comment</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            
+            <input type="hidden" asp-for="DiscussionId" value="@ViewData["DiscussionId"]" />
+
+            <div class="form-floating mb-3" style="text-align: center;">
+                <textarea asp-for="Content" class="form-control form-thumbnail" style="display: block; width: 100%; max-width: 600px; margin: 0 auto; height: 150px;" placeholder="Enter your comment"></textarea>
+                <label asp-for="Content">Comment</label>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            
 
             <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Discussions" asp-route-id="@ViewBag.DiscussionId">Back to List</a>
+    </section>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_ValidationScriptsPartial" />
 }

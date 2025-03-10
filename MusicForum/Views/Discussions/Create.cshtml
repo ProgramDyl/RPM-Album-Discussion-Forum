@@ -42,15 +42,15 @@
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
 
-           
+            <div class="mb-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
             
         </form>
     </section>
 </div>
 
-<div>
-    <a asp-action="Index" style="text-decoration: underline; color: blue;">Back to List</a>
-</div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
