@@ -1,36 +1,93 @@
+/* Global styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: blanchedalmond;
+    background-image: url('../assets/canvas-texture.png');
+    background-size: cover;
+    background-blend-mode: multiply;
+    opacity: 0.9;
+}
+
+
+/*Component Styles */
+
+/* Navbar */
 .navbar {
-    background-color: dodgerblue;
+    background-color: #8b0000;
 }
 
+/* Logo */
 .logo-img {
-    height: 10px;
+    height: 10px; 
 }
 
+.form-control {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Form thumbnails */
+.form-thumbnail {
+    max-height: 150px;
+    max-width: 150px;
+    border: 2px solid #ddd;
+}
+
+.form-floating {
+    text-align: center;
+    position: relative;
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+    .form-floating .form-control {
+        display: block;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .form-floating label {
+        position: absolute;
+        top: 0.5rem;
+        left: 1.2rem;
+        font-size: 0.9rem;
+        pointer-events: none;
+        transition: all 0.2s ease;
+    }
+
+    .form-floating .form-control:focus ~ label,
+    .form-floating .form-control:not(:placeholder-shown) ~ label {
+        top: -0.5rem;
+        left: 1rem;
+        font-size: 0.75rem;
+        color: #007bff;
+    }
+
+
+/* Home header */
 .home-header {
     font-family: 'Bookman Old Style';
-    font-size: 4rem;
+    font-size: 80px; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    text-align: center;
+    margin: 20px 0;
 }
 
+/* Thumbnails */
 .thumbnail {
     max-width: 280px;
     height: auto;
     margin-right: 15px;
+    border: 2px solid #ddd; 
 }
 
-.title-width {
-    width: 100%;
-}
-
-.comment-box {
-    width: 5em;
-}
-
-.form-thumbnail {
-    max-height: 150px;
-    max-width: 150px;
-}
-
-.create-button button {
+button,
+input[type="button"],
+input[type="submit"] {
     background-color: #d9534f;
     color: antiquewhite;
     border: 1px solid antiquewhite;
@@ -42,22 +99,73 @@
     margin: 2px 2px;
     cursor: pointer;
     border-radius: 65px;
+    transition: background-color 0.3s ease;
 }
 
-    .create-button button:hover {
-        background-color: dodgerblue;
+  
+    button:hover,
+    input[type="button"]:hover,
+    input[type="submit"]:hover {
+        background-color: #8b0000;
     }
 
-.discussion-row {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: row;
-    position: relative;
-    padding: 10px;
-    border: 1px solid #ddd;
+.button a {
+    background-color: #d9534f;
+    color: antiquewhite;
+    border: 1px solid antiquewhite;
+    padding: 5px 10px;
+    text-align: center;
+    font-family: NSimSun, sans-serif;
+    display: inline-flex;
+    font-size: 16px;
+    margin: 2px 2px;
+    cursor: pointer;
+    border-radius: 65px;
+    transition: background-color 0.3s ease;
+    text-decoration: none; 
+}
+
+
+.button a:hover {
+    background-color: #8b0000;
+}
+
+
+/* Profile*/
+
+.profile-picture {
+    width: 300px;
+    height: 300px;
+    border-radius: 100%; 
+    border: 3px solid #8b0000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
-    width: 100%;
+}
+
+
+
+/*    Discussion section styles */
+
+.discussion-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 30px;
     box-sizing: border-box;
+    border: 3px double black;
+}
+
+/* Discussion rows */
+.discussion-row {
+    display: grid; /
+    grid-template-columns: auto 1fr auto; 
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    border: 3px double black;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
     .discussion-row img {
@@ -67,79 +175,76 @@
 .discussion-content {
     flex-grow: 1;
     font-size: 14px;
-    font-family: MingLiU_HKSCS-ExtB;
+    font-family: MingLiU_HKSCS-ExtB, sans-serif;
     flex-direction: column;
     margin-top: 40px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+
+
+
 }
 
 .discussion-title {
     font-size: 22px;
     font-weight: bold;
-    font-family: SimSun-ExtG;
+    font-family: Cooper Black;
+    color: black;
     margin-bottom: 5px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
 }
 
 .discussion-created {
     font-size: 12px;
     font-weight: 100;
-    font-family: NSimSun;
-    margin-left: 70px;;
+    font-family: NSimSun, sans-serif;
+    margin-left: 2em; 
     margin-right: 10px;
+    color: #666; 
 }
 
-.comment {
-    font-size: 14px;
-    color: #666;
-}
-
-.comment-box {
-    width: 300px;
-    height: 200px;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    background-color: antiquewhite;
-}
-
-.d-flex {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.flex-grow-1 {
-    flex: 1
-}
-
+/* Comments section */
 .comments-section {
     background-color: aliceblue;
-    border: 1px solid black;
+    border: 3px double black; 
     border-radius: 10px;
     padding: 20px;
     margin-top: 20px;
     text-align: center;
-    font-family: NSimSun;
+    font-family: NSimSun, sans-serif;
 }
 
 .comments-content {
     margin-top: 10px;
 }
 
-.section {
-    margin-bottom: 30px;
+
+.comment-box {
+    width: 300px;
+    height: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #ddd;
+    font-family: NSimSun, sans-serif;
 }
 
-.main-content {
-    flex: 1;
-    overflow: auto;
-    padding-bottom: 100px;
+
+.authentication-row {
+    display: flex; 
+    justify-content: center;
+    gap: 10px; 
+    align-items: center;
+    padding: 10px;
+    border: 3px double black;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
+
+
 
 .footer {
     position: relative;
@@ -155,7 +260,9 @@ html, body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 11px;
     line-height: 60px;
+    color: antiquewhite; 
 }
+
 
 @media (max-width: 768px) {
     .discussion-row {
@@ -166,5 +273,9 @@ html, body {
     .thumbnail {
         margin-right: 0;
         margin-bottom: 10px;
+    }
+
+    .home-header {
+        font-size: 4rem; 
     }
 }

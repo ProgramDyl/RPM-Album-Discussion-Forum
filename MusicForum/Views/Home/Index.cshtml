@@ -47,9 +47,11 @@
                 </p>
                 <div class="verticalLine"></div>
                 <p class="discussion-created">
-                    Comments: @discussion.Comments.Count() 
+                    Comments: @(discussion.Comments?.Count() ?? 0)
                 </p>
-                <p>
+                <p class="discussion-created">
+                    Thread by: @(discussion.ApplicationUser?.Name ?? "Anonymous")
+                </p>
                 
             </div>
         </div>
@@ -65,4 +67,3 @@
         </div>
     </footer>
 </div>
-

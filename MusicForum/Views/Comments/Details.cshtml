@@ -27,6 +27,7 @@ namespace MusicForum.Controllers
 
         // Discussion page
         public IActionResult Discussions(int id)
+   
         {
             // Fetch a specific discussion by id
             Discussion discussion = _context.Discussion.Find(id);

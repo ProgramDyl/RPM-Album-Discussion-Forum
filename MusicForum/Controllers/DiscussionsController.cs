@@ -21,13 +21,15 @@ namespace MusicForum.Controllers
         public DiscussionsController(RPMForumContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Discussions by user id
         public async Task<IActionResult> Index()
         {
-            //get all photos
+            //get threads of person logged on 
             var userId = _userManager.GetUserId(User);
+
             var discussions = await _context.Discussion
                 .Where(m => m.ApplicationUserId == userId)
                 .ToListAsync();
@@ -35,24 +37,27 @@ namespace MusicForum.Controllers
             return View(discussions);
         }
 
-        // GET: Discussions/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+       
+        // removed: GET: Discussions/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var discussion = await _context.Discussion
-                .Include(d => d.Comments)
-                .FirstOrDefaultAsync(m => m.DiscussionId == id);
-            if (discussion == null)
-            {
-                return NotFound();
-            }
+        //    var userId = _userManager.GetUserId(User);
+        //    var discussion = await _context.Discussion
+        //        .Include(d => d.Comments)
+        //        .Where(m => m.ApplicationUserId == userId) //refine by user id
+        //        .FirstOrDefaultAsync(m => m.DiscussionId == id);
+        //    if (discussion == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(discussion);
-        }
+        //    return View(discussion);
+        //}
 
         // GET: Discussions/Create
         public IActionResult Create()
@@ -65,25 +70,23 @@ namespace MusicForum.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DiscussionId,Title,Content,ImageFile,ImageFileName,CreateDate")] Discussion discussion)
+        public async Task<IActionResult> Create([Bind("DiscussionId,Title,Content,ImageFile,CreateDate")] Discussion discussion)
         {
 
             //init datetime prop
             discussion.CreateDate = DateTime.Now;
 
             //rename uploaded file to a guid (unique filename). Set before saved in db.
-            discussion.ImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(discussion.ImageFileName);
+            discussion.ImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(discussion.ImageFile?.FileName);
 
             //sets owner of the record
             var userId = _userManager.GetUserId(User);
+            //set current owner's ID to the discussion
             discussion.ApplicationUserId = userId;
 
 
             if (ModelState.IsValid)
             {
-                _context.Add(discussion);
-                await _context.SaveChangesAsync();
-
                 // Save the uploaded file after the photo is saved in the database.
                 if (discussion.ImageFile != null)
                 {
@@ -95,6 +98,8 @@ namespace MusicForum.Controllers
                     }
                 }
 
+                _context.Add(discussion);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(discussion);
@@ -108,7 +113,13 @@ namespace MusicForum.Controllers
                 return NotFound();
             }
 
-            var discussion = await _context.Discussion.Include("Comments").FirstOrDefaultAsync(m => m.DiscussionId == id);
+            //get id of logged in user
+            var userId = _userManager.GetUserId(User);
+
+            var discussion = await _context.Discussion
+                .Include("Comments")
+                .Where(m => m.ApplicationUserId == userId)
+                .FirstOrDefaultAsync(m => m.DiscussionId == id);
             if (discussion == null)
             {
                 return NotFound();
@@ -121,8 +132,13 @@ namespace MusicForum.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DiscussionId,Title,Content,ImageFileName,CreateDate")] Discussion discussion)
+        public async Task<IActionResult> Edit(int id, [Bind("DiscussionId,Title,Content,ImageFileName,CreateDate, ApplicationUserId")] Discussion discussion)
         {
+
+            //rename uploaded file to a guid (unique filename). Set before saved in db.
+            discussion.ImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(discussion.ImageFile?.FileName);
+
+
             if (id != discussion.DiscussionId)
             {
                 return NotFound();
@@ -132,6 +148,43 @@ namespace MusicForum.Controllers
             {
                 try
                 {
+                    // Retrieve the existing discussion from the database
+                    var existingDiscussion = await _context.Discussion.AsNoTracking().FirstOrDefaultAsync(d => d.DiscussionId == id);
+                    if (existingDiscussion == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Preserve the ApplicationUserId
+                    discussion.ApplicationUserId = existingDiscussion.ApplicationUserId;
+
+                    // Save the uploaded file before updating the discussion in the database.
+                    if (discussion.ImageFile != null)
+                    { 
+                        // Generate a unique filename for the new image
+                        discussion.ImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(discussion.ImageFile.FileName);
+
+                        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "photos", discussion.ImageFileName);
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await discussion.ImageFile.CopyToAsync(fileStream);
+                        }
+                        //Delete the old file if it exists
+                        if (!string.IsNullOrEmpty(existingDiscussion.ImageFileName))
+                        {
+                            string oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "photos", existingDiscussion.ImageFileName);
+                            if (System.IO.File.Exists(oldFilePath))
+                            {
+                                System.IO.File.Delete(oldFilePath);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Retain the existing file name if no new file is uploaded
+                        discussion.ImageFileName = existingDiscussion.ImageFileName;
+                    }
+
                     _context.Update(discussion);
                     await _context.SaveChangesAsync();
                 }
@@ -151,6 +204,7 @@ namespace MusicForum.Controllers
             return View(discussion);
         }
 
+
         // GET: Discussions/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -159,7 +213,11 @@ namespace MusicForum.Controllers
                 return NotFound();
             }
 
+            //get id of logged in user
+            var userId = _userManager.GetUserId(User);
+
             var discussion = await _context.Discussion
+                .Where(m => m.ApplicationUserId == userId)
                 .FirstOrDefaultAsync(m => m.DiscussionId == id);
             if (discussion == null)
             {
@@ -174,13 +232,25 @@ namespace MusicForum.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var discussion = await _context.Discussion.FindAsync(id);
-            if (discussion != null)
+            //get id of logged in user
+            var userId = _userManager.GetUserId(User);
+
+            var discussion = await _context.Discussion
+                .Where(m => m.ApplicationUserId == userId)
+                .FirstOrDefaultAsync(m => m.DiscussionId == id);
+
+            
+            if (discussion == null)
+            {
+                return NotFound();
+            }
+            else
             {
                 _context.Discussion.Remove(discussion);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MusicForum.Data;
@@ -14,22 +15,33 @@ namespace MusicForum.Controllers
     public class CommentsController(RPMForumContext context) : Controller
     {
         private readonly RPMForumContext _context = context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         // GET: Comments
         public async Task<IActionResult> Index()
         {
             var RPMForumContext = _context.Comment.Include(c => c.Discussion);
+            
+
 
             return View(await RPMForumContext.ToListAsync());
         }
 
         // GET: Comments/Create
-        public IActionResult Create(int? id)
+        public async Task<IActionResult> Create(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
+
+            //get id of logged in user
+            var userId = _userManager.GetUserId(User);
+
+            var discussion = await _context.Discussion
+                .Include("Comments")
+                .Where(m => m.ApplicationUserId == userId)
+                .FirstOrDefaultAsync(m => m.DiscussionId == id);
 
             //set discussionID for comment's fk
             ViewData["DiscussionId"] = id;
@@ -44,7 +56,7 @@ namespace MusicForum.Controllers
         {
             comment.CreateDate = DateTime.Now;
 
-
+            //get the photos and ensure looged in user is owner
 
             if (ModelState.IsValid)
             {
@@ -63,10 +75,16 @@ namespace MusicForum.Controllers
         // GET: Comments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+
+            //get the photos and ensure looged in user is owner
+
+
             if (id == null)
             {
                 return NotFound();
             }
+
+            
 
             var comment = await _context.Comment
                 .Include(c => c.Discussion)
