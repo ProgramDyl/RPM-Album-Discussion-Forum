@@ -6,8 +6,8 @@
 
 <h1 class="home-header">@ViewData["Title"]</h1>
 
-<div class="discussion-container">
-    <div class="discussion-row">
+<div class="discussion-container" style="background-color: cornflowerblue; max-width: 80%; margin: 0 auto; border: 2px solid black;">
+    
         <section class="comments-section">
             <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
                 <h2 class="discussion-title">Create a new account</h2>
@@ -16,7 +16,7 @@
 
                 
 
-                <div class="mb-3" style="text-align: center;">
+                <div class="form-floating mb-3" style="text-align: center;">
                     <label asp-for="Input.ImageFile" class="form-label"></label><br />
                     <input type="file" asp-for="Input.ImageFile" class="form-control" />
                     <span asp-validation-for="Input.ImageFile" class="text-danger"></span>
@@ -61,7 +61,7 @@
                 <button id="registerSubmit" type="submit" class="create-button">Register</button>
             </form>
         </section>
-    </div>
+    
 </div>
 
 @section Scripts {

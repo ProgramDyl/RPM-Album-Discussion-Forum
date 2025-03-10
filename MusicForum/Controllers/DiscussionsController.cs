@@ -37,27 +37,7 @@ namespace MusicForum.Controllers
             return View(discussions);
         }
 
-       
-        // removed: GET: Discussions/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var userId = _userManager.GetUserId(User);
-        //    var discussion = await _context.Discussion
-        //        .Include(d => d.Comments)
-        //        .Where(m => m.ApplicationUserId == userId) //refine by user id
-        //        .FirstOrDefaultAsync(m => m.DiscussionId == id);
-        //    if (discussion == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(discussion);
-        //}
+     
 
         // GET: Discussions/Create
         public IActionResult Create()

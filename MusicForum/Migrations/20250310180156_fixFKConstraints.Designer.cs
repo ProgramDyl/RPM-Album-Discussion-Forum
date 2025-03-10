@@ -12,8 +12,8 @@ using MusicForum.Data;
 namespace MusicForum.Migrations
 {
     [DbContext(typeof(RPMForumContext))]
-    [Migration("20250308004156_AddAppUserToDisc")]
-    partial class AddAppUserToDisc
+    [Migration("20250310180156_fixFKConstraints")]
+    partial class fixFKConstraints
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -251,6 +251,9 @@ namespace MusicForum.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -262,6 +265,8 @@ namespace MusicForum.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CommentId");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("DiscussionId");
 
@@ -355,11 +360,18 @@ namespace MusicForum.Migrations
 
             modelBuilder.Entity("MusicForum.Models.Comment", b =>
                 {
+                    b.HasOne("ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("MusicForum.Models.Discussion", "Discussion")
                         .WithMany("Comments")
                         .HasForeignKey("DiscussionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Discussion");
                 });

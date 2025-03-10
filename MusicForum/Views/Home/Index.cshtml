@@ -49,6 +49,9 @@
                 <p class="discussion-created">
                     Comments: @(discussion.Comments?.Count() ?? 0)
                 </p>
+                <p class="discussion-created">
+					By: @(discussion.ApplicationUser?.Name)
+                </p>
                 
                 
             </div>

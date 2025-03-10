@@ -20,9 +20,26 @@ namespace MusicForum.Data
         public DbSet<MusicForum.Models.Comment> Comment { get; set; } = default!;
 
 
-        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
+            
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Discussion)
+                .WithMany(d => d.Comments)
+                .HasForeignKey(c => c.DiscussionId)
+                .OnDelete(DeleteBehavior.Cascade); // If a discussion is deleted, delete its comments
 
+            // Configure Comment and ApplicationUser relationship
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.ApplicationUser)
+                .WithMany()
+                .HasForeignKey(c => c.ApplicationUserId)
+                .OnDelete(DeleteBehavior.SetNull); // When a user is deleted, set ApplicationUserId to null
+
+            
+        }
     }
 }
 

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MusicForum.Models.Discussion>
+
+@{
+    ViewData["Title"] = "Profile";
+    var user = ViewBag.User as ApplicationUser; 
+
+    string profileImageUrl = !string.IsNullOrEmpty(user?.ImageFilename)
+        ? Url.Content("~/profile_img/" + user.ImageFilename)
+        : Url.Content("~/assets/default-profile.png");
+
+
+}
+
+<div class="container mt-5">
+    <div class="row">
+        
+        <div class="col-12 col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <img src="@profileImageUrl" alt="Profile Image" class="profile-picture" />
+                    <h3 class="card-title">@user?.Name</h3>
+                    <p class="card-subtitle text-muted mb-2">@user?.Location</p>
+                    @if (!string.IsNullOrEmpty(user?.FavouriteAlbum))
+                    {
+                        <p class="card-text">
+                            <i class="fa-solid fa-music"></i> Favourite Album: <span class="text-primary">@user.FavouriteAlbum</span>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="col-12 col-md-8">
+            
+            @if (Model.Any())
+            {
+                <div class="discussion-container">
+                    @foreach (var discussion in Model)
+                    {
+                        string discussionImageUrl = !string.IsNullOrEmpty(discussion.ImageFileName) ? Url.Content("/photos/" + discussion.ImageFileName) : null;
+
+                        <div class="discussion-row">
+                            @if (!string.IsNullOrEmpty(discussionImageUrl))
+                            {
+                                <img src="@discussionImageUrl" alt="Discussion Image" class="thumbnail" />
+                            }
+                            <div class="discussion-content">
+                                <h4 class="discussion-title">@discussion.Title</h4>
+                                <p class="discussion-created">
+                                    <i class="fa-regular fa-calendar"></i> Created @discussion.CreateDate.ToString("MMM d yyyy")
+                                </p>
+                                <p>@discussion.Content</p>
+                                <a asp-action="DiscussionDetails" asp-route-id="@discussion.DiscussionId" class="button">View Details</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info" role="alert">
+                    You have not created any discussions yet.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+}

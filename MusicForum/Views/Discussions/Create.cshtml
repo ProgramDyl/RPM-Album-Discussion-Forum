@@ -1,50 +1,57 @@
 ﻿@model MusicForum.Models.Discussion
 
 @{
-    ViewData["Title"] = "Create";
+    
 }
 
-<h1 class="discussion-title">Create new Thread</h1>
+<h1 class="home-header">@ViewData["Title"]</h1>
 
 
-<hr />
-<div class="discussion-row">
-    <div class="col-md-4">
 
+<div class="discussion-container" style="background-color: cornflowerblue; max-width: 80%; margin: 0 auto; border: 2px solid black;">
+    
+    <div class="back-icon-container" style="margin-bottom: 20px;">
+        <a asp-action="Index" class="back-icon-link" style="text-decoration: none; color: black; display: flex; align-items: center; font-size: 18px;">
+            <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Back to List
+        </a>
+    </div>
+    <section class="comments-section">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
+            <h2 class="discussion-title">Create new Thread</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="mb-5">
-                <label asp-for="Title" class="discussion-title"></label><br />
-                <input asp-for="Title" class="mb-3 title-width" />
+           
+            <div class="form-floating mb-3" style="text-align: center;">
+                <input asp-for="Title" class="form-control form-thumbnail" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" placeholder="Thread Title" />
+                <label asp-for="Title">Thread Title</label>
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="mb-5">
-                <label asp-for="Content" class="discussion-title"></label><br />
-                <textarea asp-for="Content" class="comment-box"> </textarea>
+
+            
+            <div class="form-floating mb-3" style="text-align: center;">
+                <textarea asp-for="Content" class="form-control form-thumbnail" style="display: block; width: 100%; max-width: 600px; margin: 0 auto; height: 150px;" placeholder="Thread Content"></textarea>
+                <label asp-for="Content">Thread Content</label>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            
-            <div class="mb-5">
-                <label asp-for="ImageFile" class="discussion-title"></label><br />
 
-                <input type="file" asp-for="ImageFile" class="discussion-content" />
+           
+            <div class="form-floating mb-3" style="text-align: center;">
+                <input type="file" asp-for="ImageFile" class="form-control" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" />
+                <label asp-for="ImageFile">Attach Image</label>
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
+
+           
             
-            <div class="mb-3">
-                <input type="submit" value="Create" class="create-button" />
-            </div>
         </form>
-
-
-    </div>
+    </section>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" style="text-decoration: underline; color: blue;">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_ValidationScriptsPartial" />
 }

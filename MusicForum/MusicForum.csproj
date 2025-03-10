@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\assets\pfp.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FontAwesome" Version="4.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.0" />
@@ -27,6 +31,10 @@
 
   <ItemGroup>
     <None Include="wwwroot\assets\vinyl.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="wwwroot\assets\pfp.png" />
   </ItemGroup>
 
 </Project>

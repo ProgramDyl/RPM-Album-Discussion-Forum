@@ -12,10 +12,19 @@ using MusicForum.Models;
 namespace MusicForum.Controllers
 {
     [Authorize]
-    public class CommentsController(RPMForumContext context) : Controller
+    public class CommentsController : Controller
     {
         private readonly RPMForumContext _context = context;
         private readonly UserManager<ApplicationUser> _userManager;
+
+
+        public CommentsController(RPMForumContext context, UserManager<ApplicationUser> userManager)
+        {
+            _context = context;
+            _userManager = userManager;
+        }
+
+
 
         // GET: Comments
         public async Task<IActionResult> Index()

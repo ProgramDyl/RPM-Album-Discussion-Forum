@@ -2,12 +2,17 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    
 }
 
-<h1 class="home-header">@ViewData["Title"]</h1> <!-- Using 'home-header' for consistent header style -->
+<h1 class="home-header">@ViewData["Title"]</h1> 
 
-<div class="discussion-container">
+<div class="discussion-container" style="background-color: cornflowerblue; max-width: 80%; margin: 0 auto; border: 2px solid black;">
+    <div class="back-icon-container" style="margin-bottom: 5px;">
+        <a asp-action="Index" class="back-icon-link" style="text-decoration: none; color: black; display: flex; align-items: center; font-size: 18px;">
+            <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Back to List
+        </a>
+    </div>
     <div class="authentication-row">
         <section class="comments-section">
             <form id="account" method="post">

@@ -1,49 +1,46 @@
 ﻿@model MusicForum.Models.Discussion
 
 @{
-    ViewData["Title"] = "Edit";
+    
 }
 
-<h1 class="home-header">RPM</h1>
+<h1 class="home-header">@ViewData["Title"]</h1>
 
-<h4 class="discussion-title">Edit Discussion Details</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="DiscussionId" />
-            <input type="hidden" asp-for="ImageFileName" />
-            <input type="hidden" asp-for="CreateDate" />
-            <input type="hidden" asp-for="ApplicationUserId" />
+<div class="discussion-container">
+    <div class="authentication-row">
+        <section class="comments-section">
+            <form asp-action="Edit">
+                <h2 class="discussion-title">Edit Discussion Details</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="DiscussionId" />
+                <input type="hidden" asp-for="ImageFileName" />
+                <input type="hidden" asp-for="CreateDate" />
+                <input type="hidden" asp-for="ApplicationUserId" />
 
-            <div class="mb-3">
-                <div class="mt-4">
-                    <label asp-for="Title" class="comment"></label>
+                <div class="form-floating mb-3">
+                    <input asp-for="Title" class="form-control form-thumbnail" placeholder="Enter title" />
+                    <label asp-for="Title" class="form-label">Title</label>
+                    <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
-                <input asp-for="Title" class="comment" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
 
-            <div class="mb-3">
-                <label asp-for="Content" class="comment"></label>
-                <textarea asp-for="Content" class="form-control" rows="5"></textarea>
+                <div class="form-floating mb-3">
+                    <textarea asp-for="Content" class="form-control form-thumbnail" rows="5" style="min-height: 120px; min-width: 100%;" placeholder="Enter content"></textarea>
+                    <label asp-for="Content" class="form-label">Content</label>
+                </div>
 
-                
-            </div>
-            
+                <div class="form-floating mb-3">
+                    <input type="file" asp-for="ImageFile" class="form-control form-thumbnail" />
+                    <label asp-for="ImageFile" class="form-label">Image File</label>
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
 
-            <div class="mb-3">
-                <label asp-for="ImageFile" class="comment"></label>
-                <input type="file" asp-for="ImageFile" class="form-control" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <input type="submit" value="Save" class="b" />
-            </div>
-            <hr />
-            
-        </form>
+                <div class="mb-3">
+                    <button type="submit" class="create-button button">Save</button>
+                </div>
+                <hr />
+            </form>
+        </section>
     </div>
 </div>
 
@@ -52,5 +49,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_ValidationScriptsPartial" />
 }
