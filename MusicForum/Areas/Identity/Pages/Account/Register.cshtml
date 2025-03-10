@@ -9,10 +9,18 @@
 <div class="discussion-container">
     <div class="discussion-row">
         <section class="comments-section">
-            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
                 <h2 class="discussion-title">Create a new account</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                
+
+                <div class="mb-3" style="text-align: center;">
+                    <label asp-for="Input.ImageFile" class="form-label"></label><br />
+                    <input type="file" asp-for="Input.ImageFile" class="form-control" />
+                    <span asp-validation-for="Input.ImageFile" class="text-danger"></span>
+				</div>
 
                 <div class="form-floating mb-3" style="text-align: center;">
                     <input asp-for="Input.Name" class="form-control form-thumbnail" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" aria-required="true" placeholder="Name" />

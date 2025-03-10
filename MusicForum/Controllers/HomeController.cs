@@ -31,6 +31,7 @@ namespace MusicForum.Controllers
         public async Task<IActionResult> DiscussionDetails(int id)
         {
             var discussion = await _context.Discussion
+                .Include(m => m.ApplicationUser)
                 .Include(m => m.Comments)
                 .FirstOrDefaultAsync(m => m.DiscussionId == id);
             return View(discussion);

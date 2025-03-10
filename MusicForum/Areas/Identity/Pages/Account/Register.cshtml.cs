@@ -88,6 +88,8 @@ namespace MusicForum.Areas.Identity.Pages.Account
             [Display(Name = "Location")]
             public string Location { get; set; }
 
+            [Display(Name = "Profile Picture")]
+            public IFormFile ImageFile { get; set; }
 
 
             /// <summary>
@@ -134,9 +136,31 @@ namespace MusicForum.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+
+                ///////////////////////////////////////////
+                ///  BEGIN: APPLICATION USER CUSTOM FIELDS
+                ///////////////////////////////////////////
+                
                 user.Name = Input.Name;
                 user.FavouriteAlbum = Input.FavouriteAlbum;
                 user.Location = Input.Location;
+
+                //save the profile picture
+                if (Input.ImageFile != null)
+                {
+                    string imageFilename = Guid.NewGuid().ToString() + Path.GetExtension(Input.ImageFile.FileName);
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "profile_img", imageFilename);
+                    
+                    using (var filestream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await Input.ImageFile.CopyToAsync(filestream);
+                    }
+                    user.ImageFilename = imageFilename;
+                }
+
+                ///////////////////////////////////////////
+                ///  END: APPLICATION USER CUSTOM FIELDS
+                ///////////////////////////////////////////
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
