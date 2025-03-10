@@ -1,83 +1,74 @@
 ﻿@model MusicForum.Models.Discussion
 
 @{
-    ViewData["Title"] = "Discussion Details Page";
+    
     string imageUrl = Url.Content("/photos/" + Model.ImageFileName);
 }
 
+<h1 class="home-header text-center">@ViewData["Title"]</h1>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
+<div class="discussion-container" style="background-color: aliceblue; max-width: 80%; margin: 20px auto; padding: 20px; border: 2px solid black;">
+    <div class="text-center">
+        <h2 class="discussion-title">@Html.DisplayFor(model => model.Title)</h2>
+        <img src="@imageUrl" alt="Discussion Image" class="img-fluid rounded shadow mt-3" style="width: 100%; max-width: 400px; height: auto; object-fit: cover;" />
 
-        
-        <div class="col-12 col-md-9 text-center">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    <h4 class="discussion-title"> @Html.DisplayFor(model => model.Title)</h4>
-                    <img src="@imageUrl" alt="Discussion Image" class="img-fluid rounded shadow mt-lg-4" style="width: 400px; height: 400px; object-fit: cover; margin: auto;"  />
+        <p class="card-subtitle text-muted mt-2" style="font-size: small;">
+            <i class="fa-regular fa-calendar"></i> Created @Model.CreateDate.ToString("MMM d yyyy")
+        </p>
+    </div>
 
-                    <p class="card-subtitle text-muted mt-1 mb-3" style="font-size: small;">
-                        <i class="fa-regular fa-calendar"></i> Created @Model.CreateDate.ToString("MMM d yyyy")
+    @if (Model.ApplicationUser != null)
+    {
+        <div class="d-flex align-items-center justify-content-center mt-4 mb-4">
+            @if (!string.IsNullOrEmpty(Model.ApplicationUser.ImageFilename))
+            {
+                <a asp-controller="Home" asp-action="Profile" asp-route-id="@Model.ApplicationUser.Id" class="text-decoration-none me-3">
+                    <img src="~/profile_img/@Model.ApplicationUser.ImageFilename" alt="@Model.ApplicationUser.Name" class="rounded-circle" style="width: 75px; height: 75px; object-fit: cover;" />
+                </a>
+            }
+            <div>
+                <a asp-controller="Home" asp-action="Profile" asp-route-id="@Model.ApplicationUser.Id" class="text-decoration-none">
+                    <p class="card-subtitle text-muted mb-0" style="font-size: small;">Thread by: @Model.ApplicationUser.Name</p>
+                </a>
+                @if (Model.ApplicationUser.FavouriteAlbum != null)
+                {
+                    <p class="card-subtitle text-muted" style="font-size: small;">
+                        Favourite Album: <span class="text-primary">@Model.ApplicationUser.FavouriteAlbum <i class="fa-solid fa-music"></i></span>
                     </p>
-                    @if (Model.ApplicationUser != null)
-                    {
-                        <div class="d-flex align-items-center mb-3">
-                            <div>
-                                @if (!string.IsNullOrEmpty(Model.ApplicationUser.ImageFilename))
-                                {
-
-                                <a asp-controller="Home" asp-action="Profile" asp-route-id="@Model.ApplicationUser.Id" class="text-decoration-none">
-                                <img src="~/profile_img/@Model.ApplicationUser.ImageFilename" alt="@Model.ApplicationUser.Name" class="rounded-circle me-2" style="width: 75px; height: 75px; object-fit: cover;" /> </a>
-                                }
-                            </div>
-                            <div>
-                                <a asp-controller="Home" asp-action="Profile" asp-route-id="@Model.ApplicationUser.Id" class="text-decoration-none">
-                                    <p class="card-subtitle text-muted mb-0" style="font-size: small;">Thread by: @Model.ApplicationUser.Name</p>
-                                </a>
-                                @if (Model.ApplicationUser.FavouriteAlbum != null)
-                                {
-                                    <p class="card-subtitle text-muted" style="font-size: small;">
-                                        Favourite Album: <span class="text-primary">@Model.ApplicationUser.FavouriteAlbum <i class="fa-solid fa-music"></i></span>
-                                    </p>
-                                }
-                            </div>
-                        </div>
-
-                    }
-                </div>
-                <div class="card-body text-start">
-                    
-                    <p>@Html.DisplayFor(model => model.Content)</p>
-                </div>
-            </div>
-
-            <div class="comments-section">
-                <h5 class="discussion-title"><i class="fa-solid fa-comment"></i> Comments</h5>
-                <div class="comments-content">
-                    @if (Model.Comments != null && Model.Comments.Any())
-                    {
-                        foreach (var comment in Model.Comments)
-                        {
-                            <div class="card mt-3">
-                                <div class="card-body">
-                                    <p>@comment.Content</p>
-                                    <p>@comment.CreateDate</p>
-                                </div>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        <p>No comments yet. Be the first to comment!</p>
-                    }
-
-                    
-                </div>
-            </div>
-
-            <div class="mt-3 text-center">
-                <a asp-controller="Comments" asp-action="Create" asp-route-id="@Model.DiscussionId" class="create-button button">Add Comment</a>
+                }
             </div>
         </div>
+    }
+
+    <div class="card-body text-start">
+        <p class="discussion-content">@Html.DisplayFor(model => model.Content)</p>
+    </div>
+
+    <div class="comments-section mt-5">
+        <h5 class="discussion-title text-center"><i class="fa-solid fa-comment"></i> Comments</h5>
+        <div class="comments-content mt-3">
+            @if (Model.Comments != null && Model.Comments.Any())
+            {
+                foreach (var comment in Model.Comments)
+                {
+                    <div class="card mt-3" style="max-width: 600px; margin: 0 auto;">
+                        <div class="card-body">
+                            <p>@comment.Content</p>
+                            <p class="text-muted small">@comment.CreateDate</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-center">No comments yet. Be the first to comment!</p>
+            }
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <form asp-controller="Comments" asp-action="Create" asp-route-id="@Model.DiscussionId" method="get" style="display: inline;">
+            <button type="submit" class="create-button button">Add Comment</button>
+        </form>
     </div>
 </div>

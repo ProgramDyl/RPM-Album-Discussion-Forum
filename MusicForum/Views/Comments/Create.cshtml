@@ -1,7 +1,7 @@
 ﻿@model MusicForum.Models.Comment
 
 @{
-    ViewData["Title"] = "RPM";
+    
 }
 
 <h1 class="home-header">@ViewData["Title"]</h1>
@@ -14,7 +14,7 @@
         </a>
     </div>
 
-    <section class="comments-section">
+    <section class="comments-section" style="display: flex; justify-content: center; align-items: center;">
         <form asp-action="Create" method="post">
             <h2 class="discussion-title">Create a New Comment</h2>
             <hr />
@@ -24,7 +24,7 @@
             <input type="hidden" asp-for="DiscussionId" value="@ViewData["DiscussionId"]" />
 
             <div class="form-floating mb-3" style="text-align: center;">
-                <textarea asp-for="Content" class="form-control form-thumbnail" style="display: block; width: 100%; max-width: 600px; margin: 0 auto; height: 150px;" placeholder="Enter your comment"></textarea>
+                <textarea asp-for="Content" class="form-control form-thumbnail" style="display: block;  max-width: 900px; margin: 0 auto; height: 150px;" placeholder="Enter your comment"></textarea>
                 <label asp-for="Content">Comment</label>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
