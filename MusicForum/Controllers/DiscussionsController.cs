@@ -218,13 +218,13 @@ namespace MusicForum.Controllers
                 .FirstOrDefaultAsync(m => m.DiscussionId == id);
 
 
-            if (discussion == null)
+            if (discussion != null)
             {
                 _context.Discussion.Remove(discussion);
                 await _context.SaveChangesAsync();
                 
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index)); 
 
         }
 

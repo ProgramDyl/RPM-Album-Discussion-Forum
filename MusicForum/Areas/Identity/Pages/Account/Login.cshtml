@@ -7,7 +7,7 @@
 
 <h1 class="home-header">@ViewData["Title"]</h1> 
 
-<div class="discussion-container" style="background-color: cornflowerblue; max-width: 80%; margin: 0 auto; border: 2px solid black;">
+<div class="discussion-container" style="max-width: 80%; margin: 0 auto; border: 2px solid black;">
     <div class="back-icon-container" style="margin-bottom: 5px;">
         <a asp-action="Index" class="back-icon-link" style="text-decoration: none; color: black; display: flex; align-items: center; font-size: 18px;">
             <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Back to List
@@ -19,7 +19,7 @@
                 <h2 class="discussion-title">Use a local account to log in.</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;">
+                <div class="form-floating mb-3">
                     <input asp-for="Input.Email" class="form-control form-thumbnail" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                     <label asp-for="Input.Email" class="form-label">Email</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>

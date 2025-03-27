@@ -24,7 +24,7 @@
             <input type="hidden" asp-for="DiscussionId" value="@ViewData["DiscussionId"]" />
 
             <div class="form-floating mb-3" style="text-align: center;">
-                <textarea asp-for="Content" class="form-control form-thumbnail" style="display: block;  max-width: 900px; margin: 0 auto; height: 150px;" placeholder="Enter your comment"></textarea>
+                <textarea asp-for="Content" class="form-control form-thumbnail" style="display: block;  max-width: 90%; margin: 0 auto; height: 300px;" placeholder="Enter your comment"></textarea>
                 <label asp-for="Content">Comment</label>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>

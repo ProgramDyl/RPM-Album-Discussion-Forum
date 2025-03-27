@@ -17,7 +17,6 @@ namespace MusicForum.Controllers
         private readonly RPMForumContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-
         public CommentsController(RPMForumContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
@@ -99,15 +98,12 @@ namespace MusicForum.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
 
-            //get the photos and ensure looged in user is owner
-
+            //get the photos and ensure logged in user is owner
 
             if (id == null)
             {
                 return NotFound();
             }
-
-            
 
             var comment = await _context.Comment
                 .Include(c => c.Discussion)
@@ -137,9 +133,9 @@ namespace MusicForum.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CommentExists(int id)
-        {
-            return _context.Comment.Any(e => e.CommentId == id);
-        }
+        //private bool CommentExists(int id)
+        //{
+        //    return _context.Comment.Any(e => e.CommentId == id);
+        //}
     }
 }

@@ -52,10 +52,6 @@ html, body {
     height: 10px; 
 }
 
-.form-control {
-    width: 100%;
-    max-width: 600px;
-}
 
 /* Form thumbnails */
 .form-thumbnail {
@@ -67,14 +63,13 @@ html, body {
 .form-floating {
     text-align: center;
     position: relative;
-    width: 80%;
-    max-width: 600px;
+    width: 100%;
     margin: 0 auto;
 }
 
     .form-floating .form-control {
         display: block;
-        width: 100%;
+        width: 200px;
         padding: 1rem;
     }
 
@@ -94,6 +89,13 @@ html, body {
         font-size: 0.75rem;
         color: #007bff;
     }
+
+.form-input {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
 
 
 
@@ -180,6 +182,8 @@ input[type="submit"] {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: cornflowerblue;
+    
 }
 
 
@@ -204,7 +208,7 @@ input[type="submit"] {
     font-size: 14px;
     font-family: MingLiU_HKSCS-ExtB, sans-serif;
     flex-direction: column;
-    margin-top: 40px;
+    margin-top: 4em;
     overflow-wrap: break-word;
     word-break: break-word;
     max-width: 100%;
@@ -217,7 +221,7 @@ input[type="submit"] {
     font-weight: bold;
     font-family: Cooper Black;
     color: black;
-    margin-bottom: 5px;
+    margin-bottom: 5em;
     overflow-wrap: break-word;
     word-break: break-word;
     max-width: 100%;
@@ -242,6 +246,7 @@ input[type="submit"] {
     padding: 20px;
     margin-top: 50px;
     margin: 0 auto;
+    width: 100%;
     margin-bottom: 50px;
     text-align: center;
     font-family: NSimSun, sans-serif;
@@ -253,7 +258,7 @@ input[type="submit"] {
 
 
 .comment-box {
-    width: 300px;
+    width: 4em;
     height: 200px;
     padding: 10px;
     box-sizing: border-box;
