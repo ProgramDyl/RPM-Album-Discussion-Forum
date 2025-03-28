@@ -16,7 +16,7 @@ html, body {
 
 .custom-nav {
     margin-top: 20px;
-    font-family: 'Arial', sans-serif;
+    font-family: Cooper;
     font-size: 16px;
     color: #333;
 }
@@ -100,11 +100,11 @@ html, body {
 
 
 .home-header {
-    font-family: 'Bookman Old Style';
-    font-size: 80px; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    font-family: Cooper;
+    font-size: 120px; 
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); 
     text-align: center;
-    margin: 20px 0;
+    margin: 5px 0;
 }
 
 /* Thumbnails */
@@ -197,6 +197,7 @@ input[type="submit"] {
     background-color: antiquewhite;
     border-radius: 5px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10px auto;
 }
 
     .discussion-row img {
@@ -204,16 +205,17 @@ input[type="submit"] {
     }
 
 .discussion-content {
+
     flex-grow: 1;
-    font-size: 14px;
-    font-family: MingLiU_HKSCS-ExtB, sans-serif;
+    font-size: 16px;
+    font-family: 'Book Antiqua', sans-serif;
     flex-direction: column;
     margin-top: 4em;
     overflow-wrap: break-word;
     word-break: break-word;
     max-width: 100%;
     text-align: center;
-    margin: 0 auto;
+    margin: 50px auto;
 }
 
 .discussion-title {
@@ -230,7 +232,7 @@ input[type="submit"] {
 }
 
 .discussion-created {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 100;
     font-family: NSimSun, sans-serif;
     margin: 0 auto;
